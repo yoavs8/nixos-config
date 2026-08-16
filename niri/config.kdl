@@ -1,0 +1,410 @@
+// Yoavs' Niri config
+// Based on Theo's niri config, adapted for this Lenovo laptop,
+// external Lenovo D24-20 monitor, and former Hyprland keybindings.
+//
+// Mod = Super / Windows key when running Niri normally.
+
+
+// --------------------
+// Input
+// --------------------
+
+input {
+    keyboard {
+        xkb {
+            layout "us,il"
+            model "pc105"
+            options "grp:alt_shift_toggle"
+        }
+
+        repeat-delay 300
+        repeat-rate 33
+        numlock
+    }
+
+    touchpad {
+        tap
+        dwt
+        scroll-method "two-finger"
+    }
+
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+
+// --------------------
+// Outputs
+// --------------------
+
+output "eDP-1" {
+    mode "1920x1200@60.003"
+    scale 1.25
+    transform "normal"
+    position x=0 y=0
+}
+
+output "HDMI-A-1" {
+    mode "1920x1080@74.973"
+    scale 1
+    transform "normal"
+    position x=1536 y=0
+    focus-at-startup
+}
+
+
+// --------------------
+// Gestures / Overview
+// --------------------
+
+gestures {
+    hot-corners { off; }
+}
+
+overview {
+    backdrop-color "#2e3440"
+    workspace-shadow { off; }
+}
+
+
+// --------------------
+// Layout
+// --------------------
+
+layout {
+    gaps 7
+    center-focused-column "never"
+    background-color "#2e3440"
+
+    preset-column-widths {
+        proportion 0.5
+        proportion 0.33333
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    preset-window-heights {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    focus-ring {
+        width 3
+        active-color "#88c0d0"
+        inactive-color "#4c566a"
+    }
+
+    border { off; }
+    shadow { off; }
+    struts { }
+
+    tab-indicator {
+        on
+        place-within-column
+        gap 5
+        width 10
+        length total-proportion=1.0
+        position "right"
+        gaps-between-tabs 5
+        corner-radius 12
+        active-color "#ebcb8b"
+        inactive-color "#2e3440"
+        urgent-color "#bf616a"
+    }
+}
+
+
+// --------------------
+// Desktop components
+// --------------------
+
+spawn-at-startup "waybar"
+
+prefer-no-csd
+
+cursor {
+    xcursor-theme "Adwaita"
+    xcursor-size 24
+    hide-when-typing
+}
+
+hotkey-overlay {
+    hide-not-bound
+    skip-at-startup
+}
+
+screenshot-path "~/Pictures/Screenshots/niri-screenshot-%Y-%m-%d-%H-%M-%S.png"
+
+
+// --------------------
+// Window rules
+// --------------------
+
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id=r#"librewolf$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+window-rule {
+    match app-id="^copyq$"
+    match app-id=r#"^org\.pulseaudio\.pavucontrol$"#
+    match app-id="blueman-manager"
+
+    open-floating true
+    opacity 0.8
+    default-column-width { fixed 700; }
+    default-window-height { fixed 700; }
+}
+
+layer-rule {
+    match namespace="^launcher$"
+    match namespace="waybar"
+
+    background-effect {
+        blur true
+    }
+}
+
+
+// --------------------
+// Keybindings
+// --------------------
+workspace "1"
+workspace "2"
+workspace "3"
+workspace "4"
+workspace "5"
+workspace "6"
+workspace "7"
+workspace "8"
+workspace "9"
+workspace "10"
+
+binds {
+    Mod+Shift+Slash hotkey-overlay-title="Show Niri Hotkeys" {
+        show-hotkey-overlay;
+    }
+
+    // Apps: same muscle memory as the old Hyprland setup.
+    Mod+Q hotkey-overlay-title="Open Kitty" {
+        spawn "kitty";
+    }
+
+    Mod+C repeat=false hotkey-overlay-title="Close Window" {
+        close-window;
+    }
+
+    Mod+E hotkey-overlay-title="Open Dolphin" {
+        spawn "dolphin";
+    }
+
+    Mod+R hotkey-overlay-title="Open Fuzzel" {
+        spawn "fuzzel";
+    }
+
+    Mod+V hotkey-overlay-title="Toggle Floating" {
+        toggle-window-floating;
+    }
+
+    Mod+L hotkey-overlay-title="Edit Niri Config" {
+        spawn "code" "/home/yoavs/.config/niri/config.kdl";
+    }
+
+    Mod+F hotkey-overlay-title="Fullscreen Window" {
+        fullscreen-window;
+    }
+
+    Mod+M repeat=false hotkey-overlay-title="Exit Niri" {
+        quit;
+    }
+
+    // Hypr pseudo has no direct Niri equivalent.
+    Mod+P hotkey-overlay-title="Cycle Column Width" {
+        switch-preset-column-width;
+    }
+
+    // Hypr togglesplit has no direct Niri equivalent.
+    Mod+J hotkey-overlay-title="Toggle Tabbed Column" {
+        toggle-column-tabbed-display;
+    }
+
+    Mod+O hotkey-overlay-title="Toggle Overview" {
+        toggle-overview;
+    }
+
+    // Super+S / Super+Shift+S are intentionally free because
+    // Niri 26.04 has no direct Hyprland-style special workspace/scratchpad.
+
+    // Color picker. Requires wl-clipboard.
+    Mod+I hotkey-overlay-title="Pick Color" {
+        spawn-sh "niri msg pick-color | grep 'Hex:' | cut -d' ' -f2 | wl-copy";
+    }
+
+    // Screenshots.
+    // In Niri screenshot UI: Ctrl+C = clipboard only, Space/Enter = save + clipboard.
+    Mod+B hotkey-overlay-title="Screenshot Region (Ctrl+C = Clipboard Only)" {
+        screenshot;
+    }
+
+    Mod+N hotkey-overlay-title="Screenshot Region (Space = Save)" {
+        screenshot;
+    }
+
+    Print hotkey-overlay-title="Screenshot Region" {
+        screenshot;
+    }
+
+    Ctrl+Print hotkey-overlay-title="Screenshot Current Monitor" {
+        screenshot-screen;
+    }
+
+    Alt+Print hotkey-overlay-title="Screenshot Current Window" {
+        screenshot-window;
+    }
+
+    // Focus: old Hyprland arrow-key style.
+    Mod+Left  { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Up    { focus-window-up; }
+    Mod+Down  { focus-window-down; }
+
+    // Move windows / columns.
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+Up    { move-window-up; }
+    Mod+Shift+Down  { move-window-down; }
+
+    // Multiple monitors.
+    Mod+Alt+Left  hotkey-overlay-title="Focus Monitor Left"  { focus-monitor-left; }
+    Mod+Alt+Right hotkey-overlay-title="Focus Monitor Right" { focus-monitor-right; }
+    Mod+Alt+Up                                               { focus-monitor-up; }
+    Mod+Alt+Down                                             { focus-monitor-down; }
+
+    Mod+Alt+Shift+Left  hotkey-overlay-title="Move Column to Monitor Left"  { move-column-to-monitor-left; }
+    Mod+Alt+Shift+Right hotkey-overlay-title="Move Column to Monitor Right" { move-column-to-monitor-right; }
+    Mod+Alt+Shift+Up                                                        { move-column-to-monitor-up; }
+    Mod+Alt+Shift+Down                                                      { move-column-to-monitor-down; }
+
+    // Workspaces.
+    Mod+1 { focus-workspace "1"; }
+    Mod+2 { focus-workspace "2"; }
+    Mod+3 { focus-workspace "3"; }
+    Mod+4 { focus-workspace "4"; }
+    Mod+5 { focus-workspace "5"; }
+    Mod+6 { focus-workspace "6"; }
+    Mod+7 { focus-workspace "7"; }
+    Mod+8 { focus-workspace "8"; }
+    Mod+9 { focus-workspace "9"; }
+    Mod+0 { focus-workspace "10"; }
+
+    Mod+Shift+1 { move-column-to-workspace "1"; }
+    Mod+Shift+2 { move-column-to-workspace "2"; }
+    Mod+Shift+3 { move-column-to-workspace "3"; }
+    Mod+Shift+4 { move-column-to-workspace "4"; }
+    Mod+Shift+5 { move-column-to-workspace "5"; }
+    Mod+Shift+6 { move-column-to-workspace "6"; }
+    Mod+Shift+7 { move-column-to-workspace "7"; }
+    Mod+Shift+8 { move-column-to-workspace "8"; }
+    Mod+Shift+9 { move-column-to-workspace "9"; }
+    Mod+Shift+0 { move-column-to-workspace "10"; }
+
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+
+    Mod+Page_Down { focus-workspace-down; }
+    Mod+Page_Up   { focus-workspace-up; }
+
+    // Niri column controls.
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    Mod+Minus hotkey-overlay-title="Decrease Column Width" {
+        set-column-width "-10%";
+    }
+
+    Mod+Equal hotkey-overlay-title="Increase Column Width" {
+        set-column-width "+10%";
+    }
+
+    Mod+Shift+Minus hotkey-overlay-title="Decrease Window Height" {
+        set-window-height "-10%";
+    }
+
+    Mod+Shift+Equal hotkey-overlay-title="Increase Window Height" {
+        set-window-height "+10%";
+    }
+
+    Mod+Ctrl+R hotkey-overlay-title="Reset Window Height" {
+        reset-window-height;
+    }
+
+    Mod+Shift+F hotkey-overlay-title="Maximize Column" {
+        maximize-column;
+    }
+
+    // Audio / media.
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn "wpctl" "set-volume" "-l" "1" "@DEFAULT_AUDIO_SINK@" "5%+";
+    }
+
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-";
+    }
+
+    XF86AudioMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+    }
+
+    XF86AudioMicMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
+    }
+
+    XF86AudioPlay allow-when-locked=true {
+        spawn "playerctl" "play-pause";
+    }
+
+    XF86AudioPause allow-when-locked=true {
+        spawn "playerctl" "play-pause";
+    }
+
+    XF86AudioStop allow-when-locked=true {
+        spawn "playerctl" "stop";
+    }
+
+    XF86AudioPrev allow-when-locked=true {
+        spawn "playerctl" "previous";
+    }
+
+    XF86AudioNext allow-when-locked=true {
+        spawn "playerctl" "next";
+    }
+
+    // Laptop brightness.
+    XF86MonBrightnessUp allow-when-locked=true {
+        spawn "brightnessctl" "-e4" "-n2" "set" "5%+";
+    }
+
+    XF86MonBrightnessDown allow-when-locked=true {
+        spawn "brightnessctl" "-e4" "-n2" "set" "5%-";
+    }
+
+    // Lock / recovery.
+    Super+Alt+L allow-when-locked=true allow-inhibiting=false hotkey-overlay-title="Lock Session" {
+        spawn "swaylock";
+    }
+
+    Mod+Escape allow-inhibiting=false hotkey-overlay-title="Toggle Shortcut Inhibitor" {
+        toggle-keyboard-shortcuts-inhibit;
+    }
+}

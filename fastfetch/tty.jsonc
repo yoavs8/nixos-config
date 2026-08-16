@@ -1,0 +1,48 @@
+{
+  "logo": {
+    "type": "small",
+    "source": "nixos",
+    "padding": {
+      "right": 3
+    },
+    "color": {
+      "1": "white",
+      "2": "white",
+      "3": "black",
+      "4": "black",
+      "5": "white",
+      "6": "white",
+      "7": "black",
+      "8": "black",
+      "9": "white"
+    }
+  },
+
+  "display": {
+    "separator": "  ",
+    "brightColor": true,
+
+    "color": {
+      "keys": "#81A1C1",
+      "output": "#D8DEE9",
+      "title": "#88C0D0"
+    },
+
+    "key": {
+      "width": 10
+    }
+  },
+
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "kernel",
+    "uptime",
+    "shell",
+    "cpu",
+    "memory",
+    "disk",
+    "colors"
+  ]
+}

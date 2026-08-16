@@ -1,0 +1,1 @@
+/home/yoavs/nixos-config/configuration.nix

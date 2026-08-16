@@ -1,0 +1,149 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "spacing": 1,
+  "modules-left": [
+    "niri/workspaces",
+    "niri/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "network",
+    "mpris",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "idle_inhibitor",
+    "keyboard-state",
+    "tray"
+  ],
+  "niri/workspaces": {
+    "format": "{index}"
+  },
+  "niri/window": {
+    "format": "{app_id}",
+    "max-length": 50
+  },
+  "clock": {
+    "format": " {:%b %e %H:%M}",
+    "tooltip-format": "<big>{:%H:%M:%S}</big>\n\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "left",
+      "on-click-right": "mode",
+      "format": {
+        "weeks": "<span color='#d8dee9'><i>{}</i></span>",
+        "today": "<span color='#b48ead'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode"
+    }
+  },
+  "network": {
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": "󰈀",
+    "tooltip-format-wifi": "{essid}\n{ipaddr}/{cidr}\nSignal: {signalStrength}%",
+    "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}",
+    "format-linked": "󰈀",
+    "format-disconnected": "󰖪"
+  },
+  "mpris": {
+    "format": "{status_icon} {player_icon}",
+    "format-paused": "{status_icon} {player_icon}",
+    "player-icons": {
+      "default": "",
+      "firefox": "",
+      "spotify": "",
+      "chromium": "",
+      "mpv": ""
+    },
+    "status-icons": {
+      "playing": "",
+      "paused": ""
+    },
+    "max-length": 10
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟",
+    "format-bluetooth": "󰗾 {volume}%",
+    "format-bluetooth-muted": "󰗿",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "󱡒",
+      "headset": "󱡒",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
+    },
+    "on-click": "pavucontrol"
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰃨 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "tooltip-format": "{timeTo}",
+    "interval": 30
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰾪"
+    },
+    "tooltip-format-activated": "Caffeinated: sleep inhibited",
+    "tooltip-format-deactivated": "Sleep allowed"
+  },
+  "keyboard-state": {
+    "numlock": false,
+    "capslock": true,
+    "scrolllock": false,
+    "format": {
+      "capslock": "{icon}"
+    },
+    "format-icons": {
+      "locked": "󰪛",
+      "unlocked": ""
+    }
+  },
+  "tray": {
+    "icon-size": 20,
+    "spacing": 10
+  }
+}
