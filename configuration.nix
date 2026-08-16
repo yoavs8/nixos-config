@@ -1,1 +1,1 @@
-/home/yoavs/nixos-config/configuration.nix
+/home/yoavs/nixos-config/nixos/configuration.nix

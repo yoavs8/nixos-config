@@ -1,1 +1,1 @@
-/home/yoavs/nixos-config/hardware-configuration.nix
+/home/yoavs/nixos-config/nixos/hardware-configuration.nix
