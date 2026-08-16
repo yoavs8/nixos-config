@@ -120,6 +120,7 @@ layout {
 // --------------------
 
 spawn-at-startup "waybar"
+spawn-at-startup "swaybg" "-i" "/home/yoavs/nixos-config/niri/wallpaper.jpg" "-m" "fill"
 
 prefer-no-csd
 
